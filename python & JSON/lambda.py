@@ -8,6 +8,7 @@ def lambda_handler(event, context):
     s3 = boto3.client('s3')
     response = s3.list_buckets()
     print(response)
+    
     # Output the bucket names
     print('Existing buckets:')
     for bucket in response['Buckets']:
@@ -21,7 +22,9 @@ def lambda_handler(event, context):
     body = json.loads(s3_object['Body'].read())
     print(body)
     
-    food = json.loads(s3_object['favFoods'].read())
-    print(food)
-    
-    # Cannot get fav food to print from JSON File 
+    for name in body['pets']:
+        if name == event['Meowsalot']:
+            return {
+                'statusCode' : 200,
+                'body' : json.dumps(body['favFoods'])
+            }
