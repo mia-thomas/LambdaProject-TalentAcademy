@@ -17,30 +17,11 @@ def lambda_handler(event, context):
     bucket_name = event["S3Bucket"]
     key = event["S3Prefix"]
     s3_object = s3.get_object(Bucket=bucket_name, Key=key)
+    print("This is the whole content of JSON File: ")
     body = json.loads(s3_object['Body'].read())
     print(body)
-    pet_name=event["PetName"]
     
+    food = json.loads(s3_object['favFoods'].read())
+    print(food)
     
-    foods=body['pets']
-    print(foods)
-    
-    # print("Meowsalot Fav Food is:")
-    # for food in body:
-    #     print(favFoods)
-    
-    
-    
-    # x = body['favFoods']
-    # pet_name = event[PetName]
-    # for food in pet_name
-    
-    
-
-# }
-# x = thisdict["model"]
-# {
-#   "S3Bucket": "mia-l-function-s3",
-#   "S3Prefix": "sample_data.json",
-#   "PetName": "Meowsalot"
-# }
+    # Cannot get fav food to print from JSON File 
